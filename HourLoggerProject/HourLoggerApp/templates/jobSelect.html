@@ -1,0 +1,6 @@
+<h1>Main Page</h1>
+<select>
+    {% for job in jobs %}
+        <option value={{job.id}}>{{job.name}}</option>
+    {% endfor %}
+</select>
