@@ -32,6 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
     startTime = document.querySelector('#startTime');
     stopTime = document.querySelector('#stopTime');
     statusOutput = document.querySelector('#status');
+    submissionDiv = document.querySelector('#submissionDiv');
     jobID = statusOutput.dataset.jobid;
 
     startButton = document.querySelector('#startButton');
@@ -47,6 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const time = await getTime();
         stopTime.innerText = time;
         stopTimeValue = time;
+        submitButton.hidden = false;
     });
 
     submitButton.addEventListener("click", async () => {

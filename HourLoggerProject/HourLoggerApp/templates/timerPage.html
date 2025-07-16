@@ -18,8 +18,10 @@
         <button id="stopButton">Stop Timer</button>
     </div>
     
-    <div>
-        <button id="submitButton">Submit Time</button>
+    <div id="submissionDiv">
+        <button id="submitButton" hidden>Submit Time</button>
         <h3 id="status" data-jobid="{{jobID}}"></h3>
     </div>
+
+    <a href="{% url 'jobSelect' %}">Home</a>
 </main>

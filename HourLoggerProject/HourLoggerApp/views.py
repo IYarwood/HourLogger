@@ -15,7 +15,11 @@ def jobSelect(request, *args, **kwargs):
     return render(request, "jobSelect.html", context)
 
 def showLogs(request, *args, **kwargs):
-    return render(request, "showLogs.html")
+    logs = Log.objects.all()
+    context = {
+        "logs": logs
+    }
+    return render(request, "showLogs.html", context)
 
 def timerPage(request, *args, **kwargs):
     jobID = request.GET.get('job')
@@ -31,13 +35,17 @@ def getTime(request):
     
     hours, minutes, seconds = currentTime.split(":")
 
+    partOfDay = "AM"
+
+    if int(hours) >= 12:
+        partOfDay = "PM"
     hoursNormal = int(hours) % 12
     if hoursNormal == 0:
         hoursNormal = 12
     
     seconds = seconds.split(".")[0]
 
-    formattedTime = f"{hoursNormal}:{minutes}:{seconds}"
+    formattedTime = f"{hoursNormal}:{minutes}:{seconds} {partOfDay}"
 
     return Response({'time': formattedTime})
 
