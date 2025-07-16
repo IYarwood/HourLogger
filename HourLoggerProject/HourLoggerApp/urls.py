@@ -4,7 +4,10 @@ from . import views
 
 urlpatterns = [
     path("", views.jobSelect, name="jobSelect"),
-    
+    path("timerPage/", views.timerPage, name="timerPage"),
+    path("showLogs/", views.showLogs, name="showLogs"),
+    path("getTime/", views.getTime, name="getTime"),
+    path("createLog/", views.createLog, name="createLog"),
 ]
 
     
