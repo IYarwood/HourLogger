@@ -1,27 +1,26 @@
+{% extends 'masterTemplate.html' %}
 {% load static %}
-<head>
-    <link rel="stylesheet" href="{% static 'css/timerPage.css' %}"/>
-    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
-    <script src="{% static 'js/timerCount.js' %}"></script>
-</head>
 
-<main>
+{% block title %}Timer{% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/timerPage.css' %}"/>
+    <script src="{% static 'js/timerCount.js' %}"></script>
     <div>
         <h3 id="startTime">---</h3>
         <h1>Start</h1>
         <button id="startButton">Start Timer</button>
     </div>
-    
+
     <div>
         <h3 id="stopTime">---</h3>
         <h1>End</h1>
-        <button id="stopButton">Stop Timer</button>
+        <button id="stopButton" hidden>Stop Timer</button>
     </div>
-    
+
     <div id="submissionDiv">
         <button id="submitButton" hidden>Submit Time</button>
         <h3 id="status" data-jobid="{{jobID}}"></h3>
     </div>
 
-    <a href="{% url 'jobSelect' %}">Home</a>
-</main>
+{% endblock %}

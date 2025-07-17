@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Hour Logger{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.min.css">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="{% url 'jobSelect' %}">Home</a>
+            <a href="{% url 'showLogs' %}">Show Logs</a>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>Hour Logger</p>
+    </footer>
+</body>
+</html>

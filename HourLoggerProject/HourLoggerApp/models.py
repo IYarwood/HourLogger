@@ -20,7 +20,6 @@ class Log(models.Model):
     def duration(self):
         start = self.start
         startHour, startMin, startSec = start.split(":")
-        print(startSec)
         startSec, partOfDay = startSec.split(" ")
 
         militaryStartTime = 0
@@ -65,6 +64,32 @@ class Log(models.Model):
 
         return newDuration
 
+    @property
+    def sumTime(self):
+        start = self.start
+        startHour, startMin, startSec = start.split(":")
+        startSec, partOfDay = startSec.split(" ")
+
+        militaryStartTime = 0
+        if partOfDay == "PM":
+            militaryStartTime = 12 + int(startHour)
+
+
+        end = self.end
+        endHour, endMin, endSec = end.split(":")
+        endSec, partOfDay = endSec.split(" ")
+
+        militaryEndTime = 0
+        if partOfDay == "PM":
+            militaryEndTime = 12 + int(endHour)
+
+        totalStart = (int(militaryStartTime)*3600) + (int(startMin)*60) + int(startSec)
+
+        totalEnd = (int(militaryEndTime)*3600) + (int(endMin)*60) + int(endSec)
+
+        duration = totalEnd - totalStart
+
+        return duration
 
 
 

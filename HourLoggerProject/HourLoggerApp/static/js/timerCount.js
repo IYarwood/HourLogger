@@ -42,6 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const time = await getTime();
         startTime.innerText = time;
         startTimeValue = time;
+        stopButton.hidden = false;
     });
 
     stopButton.addEventListener("click", async () => {

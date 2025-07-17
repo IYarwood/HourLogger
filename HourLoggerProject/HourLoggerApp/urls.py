@@ -8,6 +8,7 @@ urlpatterns = [
     path("showLogs/", views.showLogs, name="showLogs"),
     path("getTime/", views.getTime, name="getTime"),
     path("createLog/", views.createLog, name="createLog"),
+    path("updateTable/", views.updateTable, name="updateTable"),
 ]
 
     

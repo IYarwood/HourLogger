@@ -1,22 +1,37 @@
-<table>
-    <thead>
-        <tr>
-            <th>Date</th>
-            <th>Start</th>
-            <th>End</th>
-            <th>Duration</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for log in logs %}
-            <tr>
-                <td>{{log.date}}</td>
-                <td>{{log.start}}</td>
-                <td>{{log.end}}</td>
-                <td>{{log.duration}}</td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
+{% extends 'masterTemplate.html' %}
+{% load static %}
 
-<a href="{% url 'jobSelect' %}">Home</a>
+{% block title %}Show Logs{% endblock %}
+
+{% block content %}
+    <div id="tableContent">
+        <table id="logTable">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Start</th>
+                    <th>End</th>
+                    <th>Duration</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in logs %}
+                    <tr>
+                        <td>{{log.date}}</td>
+                        <td>{{log.start}}</td>
+                        <td>{{log.end}}</td>
+                        <td>{{log.duration}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <h1>Total Hours: {{totalHours}}</h1>
+    </div>
+    <select name="job" hx-get="{% url 'updateTable' %}" hx-target="#tableContent" hx-trigger="change">
+        {% for job in jobs %}
+            <option value={{job.id}}>{{job.name}}</option>
+        {% endfor %}
+    </select>
+
+
+{% endblock %}

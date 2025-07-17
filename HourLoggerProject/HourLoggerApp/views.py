@@ -16,10 +16,32 @@ def jobSelect(request, *args, **kwargs):
 
 def showLogs(request, *args, **kwargs):
     logs = Log.objects.all()
+    total = 0
+    for log in logs:
+        total += log.sumTime
+    totalHours = secondsToTime(total)
+
+    jobs = Job.objects.all()
     context = {
-        "logs": logs
+        "totalHours": totalHours,
+        "logs": logs,
+        "jobs": jobs
     }
     return render(request, "showLogs.html", context)
+
+def updateTable(request, *args, **kwargs):
+    job = request.GET.get('job')
+    logs = Log.objects.filter(job=job)
+    total = 0
+    for log in logs:
+        total += log.sumTime
+    totalHours = secondsToTime(total)
+
+    context = {
+        "totalHours": totalHours,
+        "logs": logs,
+    }
+    return render(request, "partials/logTable.html", context)
 
 def timerPage(request, *args, **kwargs):
     jobID = request.GET.get('job')
@@ -58,3 +80,27 @@ def createLog(request, *args, **kwargs):
     job = Job.objects.get(pk=jobID)
     Log.objects.create(job=job, start=start, end=stop)
     return Response({'status': "Submitted"})
+
+def secondsToTime(duration):
+    newHours = duration // 3600
+
+    duration -= (newHours*3600)
+
+    if newHours < 10:
+        newHours = f"0{newHours}"
+
+    newMin = duration//60
+
+    duration -= (newMin*60)
+
+    if newMin < 10:
+        newMin = f"0{newMin}"
+
+    newSeconds = duration
+
+    if newSeconds < 10:
+        newSeconds = f"0{newSeconds}"
+
+    newDuration = f"{newHours}:{newMin}:{newSeconds}"
+
+    return newDuration
