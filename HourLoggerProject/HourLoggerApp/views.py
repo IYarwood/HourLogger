@@ -32,11 +32,19 @@ def showLogs(request, *args, **kwargs):
 def updateTable(request, *args, **kwargs):
     print(request.GET)
     job = request.GET.get('job')
+    if job == "None":
+        job = None
     startDate = request.GET.get('startDate')
     endDate = request.GET.get('endDate')
-    if startDate != '':
-        logs = Log.objects.filter(date>=startDate)
-    logs = Log.objects.filter(job=job)
+    filters = {}
+    if job:
+        filters['job'] = job
+    if startDate:
+        filters['date__gte'] = startDate
+    if endDate:
+        filters['date__lte'] = endDate
+
+    logs = Log.objects.filter(**filters)
     total = 0
     for log in logs:
         total += log.sumTime
