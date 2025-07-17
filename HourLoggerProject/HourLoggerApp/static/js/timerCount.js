@@ -19,7 +19,8 @@ async function getTime() {
 
 async function makeLog() {
     try{
-        const response = await fetch(`http://127.0.0.1:8000/createLog?start=${startTimeValue}&stop=${stopTimeValue}&jobID=${jobID}`);
+        //const response = await fetch(`http://127.0.0.1:8000/createLog?start=${startTimeValue}&stop=${stopTimeValue}&jobID=${jobID}`);
+        const response = await fetch(`http://31.97.100.20:8080/createLog?start=${startTimeValue}&stop=${stopTimeValue}&jobID=${jobID}`);
         const data = await response.json();
         const status = data.status
         return status;
