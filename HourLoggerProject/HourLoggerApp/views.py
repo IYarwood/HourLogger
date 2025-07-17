@@ -30,7 +30,12 @@ def showLogs(request, *args, **kwargs):
     return render(request, "showLogs.html", context)
 
 def updateTable(request, *args, **kwargs):
+    print(request.GET)
     job = request.GET.get('job')
+    startDate = request.GET.get('startDate')
+    endDate = request.GET.get('endDate')
+    if startDate != '':
+        logs = Log.objects.filter(date>=startDate)
     logs = Log.objects.filter(job=job)
     total = 0
     for log in logs:

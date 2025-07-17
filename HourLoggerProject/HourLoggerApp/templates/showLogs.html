@@ -27,11 +27,21 @@
         </table>
         <h1>Total Hours: {{totalHours}}</h1>
     </div>
-    <select name="job" hx-get="{% url 'updateTable' %}" hx-target="#tableContent" hx-trigger="change">
-        {% for job in jobs %}
-            <option value={{job.id}}>{{job.name}}</option>
-        {% endfor %}
-    </select>
+    
+    <form hx-get="{% url 'updateTable' %}" hx-target="#tableContent">
+        <select name="job">
+            <option selected disabled>Select Job</option>
+            {% for job in jobs %}
+                <option value={{job.id}}>{{job.name}}</option>
+            {% endfor %}
+        </select>
+        <label for="startDate">Start Date</label>
+        <input name="startDate" type="date"/>
+        <label for="endDate">End Date</label>
+        <input name="endDate" type="date"/>
+
+        <button>Sort</button>
+    </form>
 
 
 {% endblock %}
