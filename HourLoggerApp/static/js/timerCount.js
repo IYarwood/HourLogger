@@ -8,7 +8,7 @@ let jobID;
 
 async function getTime() {
     try {
-        const response = await fetch("https://hourlogger-oja6.onrender.com/getTime/");
+        const response = await fetch("https://hourlogger-ohio.onrender.com/getTime/");
         const data = await response.json();
         return data.time; 
     } catch (error) {
@@ -19,7 +19,7 @@ async function getTime() {
 
 async function makeLog() {
     try{
-        const response = await fetch(`https://hourlogger-oja6.onrender.com/createLog?start=${startTimeValue}&stop=${stopTimeValue}&jobID=${jobID}`);
+        const response = await fetch(`https://hourlogger-ohio.onrender.com/createLog?start=${startTimeValue}&stop=${stopTimeValue}&jobID=${jobID}`);
         //const response = await fetch(`http://31.97.100.20:8080/createLog?start=${startTimeValue}&stop=${stopTimeValue}&jobID=${jobID}`);
         const data = await response.json();
         const status = data.status
