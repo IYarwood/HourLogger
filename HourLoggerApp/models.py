@@ -18,26 +18,33 @@ class Log(models.Model):
 
     @property
     def duration(self):
+        def convertToMilitary(hour, partOfDay):
+            hour = int(hour)
+            if partOfDay == "AM" and hour == 12:
+                return 0
+            elif partOfDay == "PM" and hour != 12:
+                return hour + 12
+            else:
+                return hour
         start = self.start
         startHour, startMin, startSec = start.split(":")
         startSec, partOfDay = startSec.split(" ")
 
-        militaryStartTime = 0
-        if partOfDay == "PM":
-            militaryStartTime = 12 + int(startHour)
+        militaryStartTime = convertToMilitary(startHour, partOfDay)
 
 
         end = self.end
         endHour, endMin, endSec = end.split(":")
         endSec, partOfDay = endSec.split(" ")
 
-        militaryEndTime = 0
-        if partOfDay == "PM":
-            militaryEndTime = 12 + int(endHour)
+        militaryEndTime = convertToMilitary(endHour, partOfDay)
 
         totalStart = (int(militaryStartTime)*3600) + (int(startMin)*60) + int(startSec)
 
         totalEnd = (int(militaryEndTime)*3600) + (int(endMin)*60) + int(endSec)
+
+        if totalEnd < totalStart:
+            totalEnd += 24 * 3600
 
         duration = totalEnd - totalStart
 
@@ -45,47 +52,46 @@ class Log(models.Model):
 
         duration -= (newHours*3600)
 
-        if newHours < 10:
-            newHours = f"0{newHours}"
-
         newMin = duration//60
 
         duration -= (newMin*60)
 
-        if newMin < 10:
-            newMin = f"0{newMin}"
-
         newSeconds = duration
 
-        if newSeconds < 10:
-            newSeconds = f"0{newSeconds}"
-
-        newDuration = f"{newHours}:{newMin}:{newSeconds}"
+        newDuration = f"{newHours:02}:{newMin:02}:{newSeconds:02}"
 
         return newDuration
 
     @property
     def sumTime(self):
+        def convertToMilitary(hour, partOfDay):
+            hour = int(hour)
+            if partOfDay == "AM" and hour == 12:
+                return 0
+            elif partOfDay == "PM" and hour != 12:
+                return hour + 12
+            else:
+                return hour
+            
         start = self.start
         startHour, startMin, startSec = start.split(":")
         startSec, partOfDay = startSec.split(" ")
 
-        militaryStartTime = 0
-        if partOfDay == "PM":
-            militaryStartTime = 12 + int(startHour)
+        militaryStartTime = convertToMilitary(startHour, partOfDay)
 
 
         end = self.end
         endHour, endMin, endSec = end.split(":")
         endSec, partOfDay = endSec.split(" ")
 
-        militaryEndTime = 0
-        if partOfDay == "PM":
-            militaryEndTime = 12 + int(endHour)
+        militaryEndTime = convertToMilitary(endHour, partOfDay)
 
         totalStart = (int(militaryStartTime)*3600) + (int(startMin)*60) + int(startSec)
 
         totalEnd = (int(militaryEndTime)*3600) + (int(endMin)*60) + int(endSec)
+
+        if totalEnd < totalStart:
+            totalEnd += 24 * 3600
 
         duration = totalEnd - totalStart
 
