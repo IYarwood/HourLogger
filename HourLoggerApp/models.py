@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import date
 
 # Create your models here.
 class Job(models.Model):
@@ -12,7 +13,7 @@ class Job(models.Model):
 
 class Log(models.Model):
     job = models.ForeignKey(Job, on_delete=models.PROTECT, verbose_name="Logs")
-    date = models.DateField(auto_now_add=True)
+    date = models.DateField(default=date.today)
     start = models.CharField(max_length=20, verbose_name="Start")
     end = models.CharField(max_length=20, verbose_name="End")
 
